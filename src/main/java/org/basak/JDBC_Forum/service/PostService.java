@@ -42,7 +42,7 @@ public class PostService {
     }
     public String updatePost(Post post, String oldTitle) {
         List<Post> posts = postRepository.findPostbyUserIdAndTitle(post.getUserId(),oldTitle);
-        if(posts.size()==0){
+        if(!posts.isEmpty()){
             Post firstPost = posts.get(0);
             firstPost.setTitle(post.getTitle());
             firstPost.setContent(post.getContent());
@@ -56,7 +56,7 @@ public class PostService {
 
     public String deletePost(String title, Long userId) {
         List<Post> posts = postRepository.findPostbyUserIdAndTitle(userId, title);
-        if (posts.size() > 0) {
+        if (!posts.isEmpty() ) {
             Post post = posts.get(0);
             postRepository.deleteById(post.getId());
             return "Silme işlemi başarılı";
@@ -70,7 +70,7 @@ public class PostService {
         List<Long> uniqueUserIds = posts.stream()
                 .map(Post::getUserId)
                 .distinct()
-                .collect(Collectors.toList());
+                .toList();
         for (Long userId : uniqueUserIds) {
             System.out.println(userRepository.findById(userId).get().getUsername());
         }
