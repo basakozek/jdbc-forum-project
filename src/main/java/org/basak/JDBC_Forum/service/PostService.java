@@ -56,7 +56,7 @@ public class PostService {
 
     public String deletePost(String title, Long userId) {
         List<Post> posts = postRepository.findPostbyUserIdAndTitle(userId, title);
-        if (!posts.isEmpty() ) {
+        if (!posts.isEmpty()) {
             Post post = posts.get(0);
             postRepository.deleteById(post.getId());
             return "Silme işlemi başarılı";
